@@ -1,6 +1,6 @@
 {
     "name": "fnjs",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "description": "Functional methods that handle Maps and Arrays alike.",
     "author": "Matt Balmer <contact@mattbalmer.com>",
     "licenses": "MIT",

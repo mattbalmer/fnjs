@@ -1,3 +1,5 @@
+'use strict';
+
 function extend(src, ...objects) {
     for(let i in objects) {
         if(!objects.hasOwnProperty(i)) continue;
