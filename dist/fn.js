@@ -29,6 +29,13 @@ function collect(collection) {
     });
 }
 
+function _forEach(collection, callback) {
+    Array.isArray(collection) ? collection.forEach(callback) : collect(collection).forEach(function (entry, i, collection) {
+        return callback(entry.value, entry.key, collection);
+    });
+    return collection;
+}
+
 function _filter(collection, callback) {
     return Array.isArray(collection) ? collection.filter(callback) : collect(collection).filter(function (entry, i, collection) {
         return callback(entry.value, entry.key, collection);
@@ -56,6 +63,12 @@ function _reduce(collection, callback, initial) {
 
 function collection(_collection) {
     return extend(Object.create({
+        valueOf: function valueOf() {
+            return this.collection;
+        },
+        forEach: function forEach(callback) {
+            return collection(_forEach(this, callback));
+        },
         filter: function filter(callback) {
             return collection(_filter(this, callback));
         },
@@ -71,12 +84,16 @@ function collection(_collection) {
 
 function chain(_collection) {
     return Object.create({
+        forEach: function forEach(callback) {
+            _forEach(this.collection, callback);
+            return this;
+        },
         filter: function filter(callback) {
-            this.collection = collection(_filter(this.collection, callback));
+            this.collection = _filter(this.collection, callback);
             return this;
         },
         map: function map(callback) {
-            this.collection = collection(_map(this.collection, callback));
+            this.collection = _map(this.collection, callback);
             return this;
         },
         reduce: function reduce(callback, initial) {
@@ -134,12 +151,16 @@ fn.open = open;
 fn.pipe = pipe;
 fn.close = close;
 
+fn.forEach = _forEach;
 fn.filter = _filter;
 fn.map = _map;
 fn.reduce = _reduce;
 
 if (typeof window !== 'undefined') {
     window.fn = fn;
+}
+if (typeof module !== 'undefined') {
+    module.exports = fn;
 }
 
 },{}]},{},[1]);

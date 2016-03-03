@@ -19,6 +19,12 @@ function collect(collection) {
         .map((key, i, keys) => ({value: collection[key], key}));
 }
 
+function forEach(collection, callback) {
+    Array.isArray(collection) ? collection.forEach(callback) : collect(collection)
+        .forEach((entry, i, collection) => callback(entry.value, entry.key, collection))
+    return collection;
+}
+
 function filter(collection, callback) {
     return Array.isArray(collection) ? collection.filter(callback) : collect(collection)
         .filter((entry, i, collection) => callback(entry.value, entry.key, collection))
@@ -47,6 +53,12 @@ function reduce(collection, callback, initial) {
 
 function collection(_collection) {
     return extend(Object.create({
+        valueOf() {
+            return this.collection
+        },
+        forEach(callback) {
+            return collection(forEach(this, callback));
+        },
         filter(callback) {
             return collection(filter(this, callback));
         },
@@ -62,12 +74,16 @@ function collection(_collection) {
 
 function chain(_collection) {
     return Object.create({
+        forEach(callback) {
+            forEach(this.collection, callback);
+            return this;
+        },
         filter(callback) {
-            this.collection = collection(filter(this.collection, callback));
+            this.collection = filter(this.collection, callback);
             return this;
         },
         map(callback) {
-            this.collection = collection(map(this.collection, callback));
+            this.collection = map(this.collection, callback);
             return this;
         },
         reduce(callback, initial) {
@@ -122,8 +138,10 @@ fn.open = open;
 fn.pipe = pipe;
 fn.close = close;
 
+fn.forEach = forEach;
 fn.filter = filter;
 fn.map = map;
 fn.reduce = reduce;
 
 if(typeof window !== 'undefined') { window.fn = fn }
+if(typeof module !== 'undefined') { module.exports = fn }
