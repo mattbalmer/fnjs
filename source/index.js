@@ -16,6 +16,7 @@ fn.open = pipes.open;
 fn.pipe = pipes.pipe;
 fn.close = pipes.close;
 
+fn.forEach = functions.forEach;
 fn.filter = functions.filter;
 fn.map = functions.map;
 fn.reduce = functions.reduce;

@@ -6,6 +6,9 @@ export function collection(_collection) {
         valueOf() {
             return this.collection
         },
+        forEach(callback) {
+            return collection(functions.forEach(this, callback));
+        },
         filter(callback) {
             return collection(functions.filter(this, callback));
         },

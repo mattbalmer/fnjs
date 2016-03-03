@@ -6,6 +6,7 @@ Recreate common functional array methods for objects.
 
 This library currently supports
 
+* forEach
 * filter
 * map
 * reduce

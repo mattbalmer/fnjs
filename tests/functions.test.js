@@ -15,6 +15,22 @@ describe('raw functions', () => {
         };
     });
 
+    describe('forEach', () => {
+        it('should push to an array (testing keys & values)', () => {
+            let res = [];
+            fn.forEach(numeralMap, (v, k) => res.push({ k, v }));
+
+            expect(res).to.deep.equal([
+                { k: 'a', v: 1 },
+                { k: 'b', v: 2 },
+                { k: 'c', v: 3 },
+                { k: 'd', v: 4 },
+                { k: 'e', v: 5 },
+                { k: 'f', v: 6 }
+            ])
+        });
+    });
+
     describe('filter', () => {
         it('should return even numbers (testing values)', () => {
             let res = fn.filter(numeralMap, v => v % 2 == 0);

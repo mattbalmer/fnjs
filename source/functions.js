@@ -1,5 +1,11 @@
 import { collect } from './utils';
 
+export function forEach(collection, callback) {
+    Array.isArray(collection) ? collection.forEach(callback) : collect(collection)
+        .forEach((entry, i, collection) => callback(entry.value, entry.key, collection))
+    return collection;
+}
+
 export function filter(collection, callback) {
     return Array.isArray(collection) ? collection.filter(callback) : collect(collection)
         .filter((entry, i, collection) => callback(entry.value, entry.key, collection))
@@ -22,6 +28,6 @@ export function map(collection, callback) {
 }
 
 export function reduce(collection, callback, initial) {
-    return Array.isArray(collection) ? collection.reduce(callback, initial || []) : collect(collection)
+    return Array.isArray(collection) ? collection.reduce(callback, initial) : collect(collection)
         .reduce((sum, entry, i, collection) => callback(sum, entry.value, entry.key, collection), initial === undefined ? 0 : initial)
 }

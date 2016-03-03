@@ -3,12 +3,16 @@ import * as functions from './functions';
 
 export function chain(_collection) {
     return Object.create({
+        forEach(callback) {
+            functions.forEach(this.collection, callback);
+            return this;
+        },
         filter(callback) {
-            this.collection = collection(functions.filter(this.collection, callback));
+            this.collection = functions.filter(this.collection, callback);
             return this;
         },
         map(callback) {
-            this.collection = collection(functions.map(this.collection, callback));
+            this.collection = functions.map(this.collection, callback);
             return this;
         },
         reduce(callback, initial) {
