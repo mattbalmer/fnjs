@@ -17,9 +17,14 @@ fn.pipe = pipes.pipe;
 fn.close = pipes.close;
 
 fn.forEach = functions.forEach;
+fn.find = functions.find;
+fn.findKey = functions.findKey;
+fn.some = functions.some;
+fn.every = functions.every;
 fn.filter = functions.filter;
 fn.map = functions.map;
 fn.reduce = functions.reduce;
+fn.reduceRight = functions.reduceRight;
 
 export default fn;
 if(typeof window !== 'undefined') { window.fn = fn }

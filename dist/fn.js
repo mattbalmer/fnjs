@@ -29,6 +29,13 @@ function collect(collection) {
     });
 }
 
+function uncollect(collection) {
+    return collection.reduce(function (collection, entry) {
+        collection[entry.key] = entry.value;
+        return collection;
+    }, {});
+}
+
 function _forEach(collection, callback) {
     Array.isArray(collection) ? collection.forEach(callback) : collect(collection).forEach(function (entry, i, collection) {
         return callback(entry.value, entry.key, collection);
@@ -37,28 +44,82 @@ function _forEach(collection, callback) {
 }
 
 function _filter(collection, callback) {
-    return Array.isArray(collection) ? collection.filter(callback) : collect(collection).filter(function (entry, i, collection) {
+    if (Array.isArray(collection)) return collection.filter(callback);
+
+    var result = collect(collection).filter(function (entry, i, collection) {
         return callback(entry.value, entry.key, collection);
-    }).reduce(function (collection, entry) {
-        collection[entry.key] = entry.value;
-        return collection;
-    }, {});
+    });
+
+    return uncollect(result);
+}
+
+function _every(collection, callback) {
+    if (Array.isArray(collection)) return collection.every(callback);
+
+    var result = collect(collection).every(function (entry, i, collection) {
+        return callback(entry.value, entry.key, collection);
+    });
+
+    return result;
+}
+
+function _some(collection, callback) {
+    if (Array.isArray(collection)) return collection.some(callback);
+
+    var result = collect(collection).some(function (entry, i, collection) {
+        return callback(entry.value, entry.key, collection);
+    });
+
+    return result;
+}
+
+function _find(collection, callback) {
+    if (Array.isArray(collection)) return collection.find(callback);
+
+    var result = collect(collection).find(function (entry, i, collection) {
+        return callback(entry.value, entry.key, collection);
+    });
+
+    return result.value;
+}
+
+function _findKey(collection, callback) {
+    if (Array.isArray(collection)) return collection.findIndex(callback);
+
+    collection = collect(collection);
+
+    var index = collection.findIndex(function (entry, i, collection) {
+        return callback(entry.value, entry.key, collection);
+    });
+
+    return collection[index].key;
 }
 
 function _map(collection, callback) {
-    return Array.isArray(collection) ? collection.map(callback) : collect(collection).map(function (entry, i, collection) {
+    if (Array.isArray(collection)) return collection.map(callback);
+
+    var result = collect(collection).map(function (entry, i, collection) {
         entry.value = callback(entry.value, entry.key, collection);
         return entry;
-    }).reduce(function (collection, entry) {
-        collection[entry.key] = entry.value;
-        return collection;
-    }, {});
+    });
+
+    return uncollect(result);
 }
 
 function _reduce(collection, callback, initial) {
-    return Array.isArray(collection) ? collection.reduce(callback, initial || []) : collect(collection).reduce(function (sum, entry, i, collection) {
+    if (Array.isArray(collection)) return collection.reduce(callback, initial);
+
+    return collect(collection).reduce(function (sum, entry, i, collection) {
         return callback(sum, entry.value, entry.key, collection);
-    }, initial === undefined ? {} : initial);
+    }, initial);
+}
+
+function _reduceRight(collection, callback, initial) {
+    if (Array.isArray(collection)) return collection.reduceRight(callback, initial);
+
+    return collect(collection).reduceRight(function (sum, entry, i, collection) {
+        return callback(sum, entry.value, entry.key, collection);
+    }, initial);
 }
 
 function collection(_collection) {
@@ -69,6 +130,18 @@ function collection(_collection) {
         forEach: function forEach(callback) {
             return collection(_forEach(this, callback));
         },
+        some: function some(callback) {
+            return _some(this.collection, callback);
+        },
+        every: function every(callback) {
+            return _every(this.collection, callback);
+        },
+        find: function find(callback) {
+            return _find(this.collection, callback);
+        },
+        findKey: function findKey(callback) {
+            return _findKey(this.collection, callback);
+        },
         filter: function filter(callback) {
             return collection(_filter(this, callback));
         },
@@ -78,6 +151,10 @@ function collection(_collection) {
         reduce: function reduce(callback, initial) {
             var res = _reduce(this, callback, initial);
             return (typeof res === 'undefined' ? 'undefined' : _typeof(res)) === 'object' ? collection(res) : res;
+        },
+        reduceRight: function reduceRight(callback, initial) {
+            var res = _reduceRight(this, callback, initial);
+            return (typeof res === 'undefined' ? 'undefined' : _typeof(res)) === 'object' ? collection(res) : res;
         }
     }), _collection);
 }
@@ -86,6 +163,22 @@ function chain(_collection) {
     return Object.create({
         forEach: function forEach(callback) {
             _forEach(this.collection, callback);
+            return this;
+        },
+        some: function some(callback) {
+            this.collection = _some(this.collection, callback);
+            return this;
+        },
+        every: function every(callback) {
+            this.collection = _every(this.collection, callback);
+            return this;
+        },
+        find: function find(callback) {
+            this.collection = _find(this.collection, callback);
+            return this;
+        },
+        findKey: function findKey(callback) {
+            this.collection = _findKey(this.collection, callback);
             return this;
         },
         filter: function filter(callback) {
@@ -98,6 +191,10 @@ function chain(_collection) {
         },
         reduce: function reduce(callback, initial) {
             this.collection = _reduce(this.collection, callback, initial);
+            return this;
+        },
+        reduceRight: function reduceRight(callback, initial) {
+            this.collection = _reduceRight(this.collection, callback, initial);
             return this;
         },
         value: function value() {
@@ -152,9 +249,14 @@ fn.pipe = pipe;
 fn.close = close;
 
 fn.forEach = _forEach;
+fn.find = _find;
+fn.findKey = _findKey;
+fn.some = _some;
+fn.every = _every;
 fn.filter = _filter;
 fn.map = _map;
 fn.reduce = _reduce;
+fn.reduceRight = _reduceRight;
 
 if (typeof window !== 'undefined') {
     window.fn = fn;

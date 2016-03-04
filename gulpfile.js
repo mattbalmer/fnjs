@@ -25,7 +25,7 @@ gulp.task('tests', recipe('babelify', {
 
 gulp.task('watch', () => {
     gulp.watch('./source/**/*.js', ['js']);
-    gulp.watch('./manual/**/*.js', ['manual']);
+    gulp.watch('./manual/**/*.js', ['js:min']);
     gulp.watch([
         './source/**/*.js',
         './tests/**/*.js'

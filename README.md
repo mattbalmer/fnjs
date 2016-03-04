@@ -7,9 +7,14 @@ Recreate common functional array methods for objects.
 This library currently supports
 
 * forEach
+* some
+* every
+* find
+* findKey
 * filter
 * map
 * reduce
+* reduceRight
 
 ## Examples
 

@@ -82,6 +82,90 @@ describe('raw functions', () => {
         });
     });
 
+    describe('find', () => {
+        it('should find 4 (testing values)', () => {
+            let res = fn.find(numeralMap, v => v == 4);
+
+            expect(res).to.equal(4);
+        });
+
+        it('should find c (testing keys)', () => {
+            let res = fn.find(numeralMap, (v, k) => k == 'c');
+
+            expect(res).to.equal(3);
+        });
+    });
+
+    describe('findKey', () => {
+        it('should find 4 (testing values)', () => {
+            let res = fn.findKey(numeralMap, v => v == 4);
+
+            expect(res).to.equal('d');
+        });
+
+        it('should find c (testing keys)', () => {
+            let res = fn.findKey(numeralMap, (v, k) => k == 'c');
+
+            expect(res).to.equal('c');
+        });
+    });
+
+    describe('some', () => {
+        it('should test some > 5 (testing values)', () => {
+            let res = fn.some(numeralMap, v => v > 5);
+
+            expect(res).to.equal(true);
+        });
+
+        it('should test against some > 10 (testing values)', () => {
+            let res = fn.some(numeralMap, v => v > 10);
+
+            expect(res).to.equal(false);
+        });
+
+        it('should test some keys are allowed (testing keys)', () => {
+            let allowedKeys = ['a', 'd'];
+            let res = fn.some(numeralMap, (v, k) => allowedKeys.indexOf(k) > -1);
+
+            expect(res).to.equal(true);
+        });
+
+        it('should test against some keys being allowed (testing keys)', () => {
+            let allowedKeys = ['t', 'z'];
+            let res = fn.some(numeralMap, (v, k) => allowedKeys.indexOf(k) > -1);
+
+            expect(res).to.equal(false);
+        });
+    });
+
+    describe('every', () => {
+        it('should test every > 0 (testing values)', () => {
+            let res = fn.every(numeralMap, v => v > 0);
+
+            expect(res).to.equal(true);
+        });
+
+        it('should test against every > 3 (testing values)', () => {
+            let res = fn.every(numeralMap, v => v > 3);
+
+            expect(res).to.equal(false);
+        });
+
+        it('should test every key is allowed (testing keys)', () => {
+            let allowedKeys = ['a', 'b', 'c', 'd', 'e', 'f'];
+            let res = fn.every(numeralMap, (v, k) => allowedKeys.indexOf(k) > -1);
+
+            expect(res).to.equal(true);
+        });
+
+        it('should test against every key being allowed (testing keys)', () => {
+            let allowedKeys = ['a', 'b', 'c', 'd', 'e'];
+            let res = fn.every(numeralMap, (v, k) => allowedKeys.indexOf(k) > -1);
+
+            expect(res).to.equal(false);
+        });
+    });
+
     describe('reduce', () => {
         it('should sum the values (testing values)', () => {
             let res = fn.reduce(numeralMap, (sum, v) => sum + v, 1);
@@ -95,6 +179,22 @@ describe('raw functions', () => {
 
             // start with _ to test the initial
             expect(res).to.equal('_abcdef')
+        });
+    });
+
+    describe('reduceRight', () => {
+        it('should concat the values RTL (testing values)', () => {
+            let res = fn.reduceRight(numeralMap, (str, v) => `${str}${v}`, '_');
+
+            // sum + 1 to test the initial
+            expect(res).to.equal('_654321');
+        });
+
+        it('should concat all keys RTL (testing keys)', () => {
+            let res = fn.reduceRight(numeralMap, (str, v, k) => `${str}${k}`, '_');
+
+            // start with _ to test the initial
+            expect(res).to.equal('_fedcba')
         });
     });
 });
