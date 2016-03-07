@@ -13,6 +13,7 @@ This library currently supports
 * findKey
 * filter
 * map
+* mapKeys
 * reduce
 * reduceRight
 

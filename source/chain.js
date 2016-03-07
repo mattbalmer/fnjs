@@ -30,6 +30,10 @@ export function chain(_collection) {
             this.collection = functions.map(this.collection, callback);
             return this;
         },
+        mapKeys(callback) {
+            this.collection = functions.mapKeys(this.collection, callback);
+            return this;
+        },
         reduce(callback, initial) {
             this.collection = functions.reduce(this.collection, callback, initial);
             return this;

@@ -82,6 +82,34 @@ describe('raw functions', () => {
         });
     });
 
+    describe('mapKeys', () => {
+        it('should multiply by 2 (testing values)', () => {
+            let res = fn.mapKeys(numeralMap, (v, k) => v * 2);
+
+            expect(res).to.deep.equal({
+                2: 1,
+                4: 2,
+                6: 3,
+                8: 4,
+                10: 5,
+                12: 6
+            })
+        });
+
+        it('should prepend the key to the value (testing keys)', () => {
+            let res = fn.mapKeys(numeralMap, (v, k) => `${k}${v}`);
+
+            expect(res).to.deep.equal({
+                a1: 1,
+                b2: 2,
+                c3: 3,
+                d4: 4,
+                e5: 5,
+                f6: 6
+            })
+        });
+    });
+
     describe('find', () => {
         it('should find 4 (testing values)', () => {
             let res = fn.find(numeralMap, v => v == 4);

@@ -93,6 +93,18 @@ function map(collection, callback) {
     return uncollect(result);
 }
 
+function mapKeys(collection, callback) {
+    if(Array.isArray(collection)) return collection.map(callback);
+
+    let result = collect(collection)
+        .map((entry, i, collection) => {
+            entry.key = callback(entry.value, entry.key, collection);
+            return entry;
+        });
+
+    return uncollect(result);
+}
+
 function reduce(collection, callback, initial) {
     if(Array.isArray(collection)) return collection.reduce(callback, initial);
 
@@ -133,6 +145,9 @@ function collection(_collection) {
         map(callback) {
             return collection(map(this, callback));
         },
+        mapKeys(callback) {
+            return collection(mapKeys(this, callback));
+        },
         reduce(callback, initial) {
             let res = reduce(this, callback, initial);
             return typeof res === 'object' ? collection(res) : res;
@@ -172,6 +187,10 @@ function chain(_collection) {
         },
         map(callback) {
             this.collection = map(this.collection, callback);
+            return this;
+        },
+        mapKeys(callback) {
+            this.collection = mapKeys(this.collection, callback);
             return this;
         },
         reduce(callback, initial) {
@@ -237,6 +256,7 @@ fn.some = some;
 fn.every = every;
 fn.filter = filter;
 fn.map = map;
+fn.mapKeys = functions.mapKeys;
 fn.reduce = reduce;
 fn.reduceRight = reduceRight;
 

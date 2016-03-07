@@ -27,6 +27,9 @@ export function collection(_collection) {
         map(callback) {
             return collection(functions.map(this, callback));
         },
+        mapKeys(callback) {
+            return collection(functions.mapKeys(this, callback));
+        },
         reduce(callback, initial) {
             let res = functions.reduce(this, callback, initial);
             return typeof res === 'object' ? collection(res) : res;

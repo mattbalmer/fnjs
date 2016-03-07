@@ -65,6 +65,18 @@ export function map(collection, callback) {
     return uncollect(result);
 }
 
+export function mapKeys(collection, callback) {
+    if(Array.isArray(collection)) return collection.map(callback);
+
+    let result = collect(collection)
+        .map((entry, i, collection) => {
+            entry.key = callback(entry.value, entry.key, collection);
+            return entry;
+        });
+
+    return uncollect(result);
+}
+
 export function reduce(collection, callback, initial) {
     if(Array.isArray(collection)) return collection.reduce(callback, initial);
 

@@ -23,6 +23,7 @@ fn.some = functions.some;
 fn.every = functions.every;
 fn.filter = functions.filter;
 fn.map = functions.map;
+fn.mapKeys = functions.mapKeys;
 fn.reduce = functions.reduce;
 fn.reduceRight = functions.reduceRight;
 
