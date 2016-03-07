@@ -256,7 +256,7 @@ fn.some = some;
 fn.every = every;
 fn.filter = filter;
 fn.map = map;
-fn.mapKeys = functions.mapKeys;
+fn.mapKeys = mapKeys;
 fn.reduce = reduce;
 fn.reduceRight = reduceRight;
 

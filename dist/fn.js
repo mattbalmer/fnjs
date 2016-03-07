@@ -273,7 +273,7 @@ fn.some = _some;
 fn.every = _every;
 fn.filter = _filter;
 fn.map = _map;
-fn.mapKeys = functions.mapKeys;
+fn.mapKeys = _mapKeys;
 fn.reduce = _reduce;
 fn.reduceRight = _reduceRight;
 
