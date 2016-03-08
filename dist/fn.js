@@ -95,6 +95,17 @@ function _findKey(collection, callback) {
     return collection[index].key;
 }
 
+function _sort(collection, callback) {
+    if (Array.isArray(collection)) return collection.map(callback);
+    collection = collect(collection);
+
+    var result = collection.sort(function (a, b) {
+        return callback(a.value, b.value, a.key, b.key, collection);
+    });
+
+    return uncollect(result);
+}
+
 function _map(collection, callback) {
     if (Array.isArray(collection)) return collection.map(callback);
 
@@ -153,6 +164,9 @@ function collection(_collection) {
         findKey: function findKey(callback) {
             return _findKey(this.collection, callback);
         },
+        sort: function sort(callback) {
+            return collection(_sort(this, callback));
+        },
         filter: function filter(callback) {
             return collection(_filter(this, callback));
         },
@@ -193,6 +207,10 @@ function chain(_collection) {
         },
         findKey: function findKey(callback) {
             this.collection = _findKey(this.collection, callback);
+            return this;
+        },
+        sort: function sort(callback) {
+            this.collection = _sort(this.collection, callback);
             return this;
         },
         filter: function filter(callback) {
@@ -271,6 +289,7 @@ fn.find = _find;
 fn.findKey = _findKey;
 fn.some = _some;
 fn.every = _every;
+fn.sort = _sort;
 fn.filter = _filter;
 fn.map = _map;
 fn.mapKeys = _mapKeys;

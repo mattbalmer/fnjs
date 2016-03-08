@@ -24,6 +24,9 @@ export function collection(_collection) {
         filter(callback) {
             return collection(functions.filter(this, callback));
         },
+        sort(callback) {
+            return collection(functions.sort(this, callback));
+        },
         map(callback) {
             return collection(functions.map(this, callback));
         },

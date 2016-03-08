@@ -22,6 +22,10 @@ export function chain(_collection) {
             this.collection = functions.findKey(this.collection, callback);
             return this;
         },
+        sort(callback) {
+            this.collection = functions.sort(this.collection, callback);
+            return this;
+        },
         filter(callback) {
             this.collection = functions.filter(this.collection, callback);
             return this;
