@@ -53,6 +53,16 @@ export function findKey(collection, callback) {
     return collection[index].key;
 }
 
+export function sort(collection, callback) {
+    if(Array.isArray(collection)) return collection.map(callback);
+    collection = collect(collection);
+
+    let result = collection
+        .sort((a, b) => callback(a.value, b.value, a.key, b.key, collection));
+
+    return uncollect(result);
+}
+
 export function map(collection, callback) {
     if(Array.isArray(collection)) return collection.map(callback);
 

@@ -21,6 +21,7 @@ fn.find = functions.find;
 fn.findKey = functions.findKey;
 fn.some = functions.some;
 fn.every = functions.every;
+fn.sort = functions.sort;
 fn.filter = functions.filter;
 fn.map = functions.map;
 fn.mapKeys = functions.mapKeys;

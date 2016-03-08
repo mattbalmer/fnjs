@@ -194,6 +194,37 @@ describe('raw functions', () => {
         });
     });
 
+    describe('sort', () => {
+        it('should sort by descending value (testing values)', () => {
+            let res = fn.sort(numeralMap, (a, b) => b - a);
+
+            expect(res).to.deep.equal({
+                f: 6,
+                e: 5,
+                d: 4,
+                c: 3,
+                b: 2,
+                a: 1
+            });
+            expect(Object.keys(res)).to.deep.equal(['f', 'e', 'd', 'c', 'b', 'a']);
+        });
+
+        it('should sort by descending alpha (testing keys)', () => {
+            let keys = ['a', 'b', 'c', 'd', 'e', 'f'];
+            let res = fn.sort(numeralMap, (a, b, akey, bkey) => keys.indexOf(bkey) - keys.indexOf(akey));
+
+            expect(res).to.deep.equal({
+                f: 6,
+                e: 5,
+                d: 4,
+                c: 3,
+                b: 2,
+                a: 1
+            });
+            expect(Object.keys(res)).to.deep.equal(['f', 'e', 'd', 'c', 'b', 'a']);
+        });
+    });
+
     describe('reduce', () => {
         it('should sum the values (testing values)', () => {
             let res = fn.reduce(numeralMap, (sum, v) => sum + v, 1);
