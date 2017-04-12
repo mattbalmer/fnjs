@@ -122,6 +122,12 @@ describe('raw functions', () => {
 
             expect(res).to.equal(3);
         });
+
+        it('should find undefined (testing false)', () => {
+            let res = fn.find(numeralMap, v => v == 'FOOBAR');
+
+            expect(res).to.equal(undefined);
+        });
     });
 
     describe('findKey', () => {
@@ -135,6 +141,12 @@ describe('raw functions', () => {
             let res = fn.findKey(numeralMap, (v, k) => k == 'c');
 
             expect(res).to.equal('c');
+        });
+
+        it('should find undefined (testing false)', () => {
+            let res = fn.findKey(numeralMap, v => v == 'FOOBAR');
+
+            expect(res).to.equal(undefined);
         });
     });
 

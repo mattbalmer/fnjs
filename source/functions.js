@@ -2,7 +2,7 @@ import { collect, uncollect } from './utils';
 
 export function forEach(collection, callback) {
     Array.isArray(collection) ? collection.forEach(callback) : collect(collection)
-        .forEach((entry, i, collection) => callback(entry.value, entry.key, collection))
+        .forEach((entry, i, collection) => callback(entry.value, entry.key, collection));
     return collection;
 }
 
@@ -39,18 +39,18 @@ export function find(collection, callback) {
     let result = collect(collection)
         .find((entry, i, collection) => callback(entry.value, entry.key, collection));
 
-    return result.value;
+    return result ? result.value : undefined;
 }
 
 export function findKey(collection, callback) {
     if(Array.isArray(collection)) return collection.findIndex(callback);
 
-    collection = collect(collection)
+    collection = collect(collection);
 
     let index = collection
         .findIndex((entry, i, collection) => callback(entry.value, entry.key, collection));
 
-    return collection[index].key;
+    return index > -1 ? collection[index].key : undefined;
 }
 
 export function sort(collection, callback) {
