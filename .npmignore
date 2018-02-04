@@ -1,0 +1,7 @@
+.idea
+*.iml
+tests
+tests-es5
+node_modules
+.babelrc
+gulp
