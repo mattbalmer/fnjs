@@ -1,7 +1,6 @@
-.idea
 *.iml
-tests
-tests-es5
-node_modules
-.babelrc
-gulp
+.idea/
+tests/
+node_modules/
+source/
+webpack.config.js

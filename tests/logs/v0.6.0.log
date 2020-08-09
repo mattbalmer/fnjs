@@ -1,0 +1,47 @@
+> npm run test:all
+Functions | every
+    [performance]
+      ✓ 10000x10000 (3730ms)
+
+  Functions | filter
+    object
+      [performance]
+        ✓ 10000x10000 (7550ms)
+
+  Functions | find
+    [performance]
+      ✓ 10000x10000 (5592ms)
+
+  Functions | findKey
+    [performance]
+      ✓ 10000x10000 (5548ms)
+
+  Functions | forEach
+    [performance]
+      ✓ 10000x10000 (8877ms)
+
+  Functions | map
+    [performance]
+      ✓ 10000x10000 (8681ms)
+
+  Functions | mapKeys
+    [performance]
+      ✓ 1000x10000 (3795ms)
+
+  Functions | reduce
+    [performance]
+      ✓ 10000x10000 (5353ms)
+
+  Functions | reduceRight
+    [performance]
+      ✓ 10000x10000 (5668ms)
+
+  Functions | some
+    [performance]
+      ✓ 10000x10000 (5065ms)
+
+  Functions | sort
+    [performance]
+      ✓ 10000x10000 (13214ms)
+
+  11 passing (1m)

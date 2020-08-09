@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "sourceMap": true,
+        "declaration": true,
+        "target": "es6",
+        "lib": ["es2018", "dom"],
+        "module": "commonjs",
+        "baseUrl": "./source",
+        "outDir": "./dist",
+        "paths": {
+            "@source/*": ["./*"]
+        }
+    },
+    "include": ["source/**/*.ts"],
+    "exclude": ["node_modules", "tests/**/*.test.ts"]
+}

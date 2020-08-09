@@ -19,7 +19,7 @@ This library currently supports
 
 ## Examples
 
-All of the following examples return `25`.
+All following examples return `25`.
 
 ### Plain functions
 
@@ -93,6 +93,13 @@ Casting to a collection object.
     .map(v => v * 2)
     .reduce((sum, v) => v + sum, 1);
 
+## Todo
+
+1. Avoid calling `collect()` where possible, to prevent double-iterating
+2. Improve typing for array/object callbacks, to better differentiate return type and callback types
+3. Improve typing for piping
+4. Re-implement acceptance of arrays in collections
+5. Add `array` describe section to all tests, for completeness
 
 ## Contact & License Info
 

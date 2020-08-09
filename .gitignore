@@ -1,4 +1,4 @@
-.idea
 *.iml
-tests-es5
-node_modules
+.idea/
+node_modules/
+dist/

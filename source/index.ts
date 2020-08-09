@@ -1,20 +1,21 @@
-import * as utils from './utils';
+import * as collectionUtils from './utils/collections';
 import * as functions from './functions';
 import * as pipes from './pipe';
 import { collection } from './collection';
 import { chain } from './chain';
+import { TodoAny } from '@source/types';
 
-function fn(_collection) {
-    return collection(_collection);
+function fn(_collection: TodoAny) {
+  return collection(_collection);
 }
 fn.collection = collection;
 
-fn.collect = utils.collect;
+fn.collect = collectionUtils.collect;
 fn.chain = chain;
 
 fn.open = pipes.open;
-fn.pipe = pipes.pipe;
-fn.close = pipes.close;
+// fn.pipe = pipes.pipe;
+// fn.close = pipes.close;
 
 fn.forEach = functions.forEach;
 fn.find = functions.find;
@@ -29,4 +30,7 @@ fn.reduce = functions.reduce;
 fn.reduceRight = functions.reduceRight;
 
 export default fn;
-if(typeof window !== 'undefined') { window.fn = fn }
+if(typeof window !== 'undefined') {
+  // @ts-ignore
+  window['fn'] = fn;
+}
