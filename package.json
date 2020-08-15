@@ -1,6 +1,6 @@
 {
     "name": "fnjs",
-    "version": "0.6.1",
+    "version": "0.6.2",
     "description": "Recreate common functional array methods for objects.",
     "author": "Matt Balmer <contact@mattbalmer.com>",
     "license": "MIT",
