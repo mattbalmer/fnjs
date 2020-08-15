@@ -2,47 +2,47 @@
 
   Functions | every
     [performance]
-      ✓ 10000x10000 (3730ms)
+      ✓ 10000x10000 (1834ms)
 
   Functions | filter
     object
       [performance]
-        ✓ 10000x10000 (7550ms)
+        ✓ 10000x10000 (6565ms)
 
   Functions | find
     [performance]
-      ✓ 10000x10000 (5592ms)
+      ✓ 10000x10000 (3170ms)
 
   Functions | findKey
     [performance]
-      ✓ 10000x10000 (5548ms)
+      ✓ 10000x10000 (4769ms)
 
   Functions | forEach
     [performance]
-      ✓ 10000x10000 (8877ms)
+      ✓ 10000x10000 (6696ms)
 
   Functions | map
     [performance]
-      ✓ 10000x10000 (8681ms)
+      ✓ 10000x10000 (5664ms)
 
   Functions | mapKeys
     [performance]
-      ✓ 1000x10000 (3795ms)
+      ✓ 1000x10000 (3800ms)
 
   Functions | reduce
     [performance]
-      ✓ 10000x10000 (5353ms)
+      ✓ 10000x10000 (3773ms)
 
   Functions | reduceRight
     [performance]
-      ✓ 10000x10000 (5668ms)
+      ✓ 10000x10000 (3865ms)
 
   Functions | some
     [performance]
-      ✓ 10000x10000 (5065ms)
+      ✓ 10000x10000 (2941ms)
 
   Functions | sort
     [performance]
-      ✓ 10000x10000 (13214ms)
+      ✓ 10000x10000 (13333ms)
 
   11 passing (1m)

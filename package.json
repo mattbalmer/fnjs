@@ -1,6 +1,6 @@
 {
     "name": "fnjs",
-    "version": "0.6.0",
+    "version": "0.6.1",
     "description": "Recreate common functional array methods for objects.",
     "author": "Matt Balmer <contact@mattbalmer.com>",
     "license": "MIT",
@@ -26,6 +26,7 @@
         "test": "mocha --require ts-node/register --require tsconfig-paths/register --grep 'performance' --invert true -R spec 'tests/**/*.test.ts'",
         "test:perf": "mocha --require ts-node/register --require tsconfig-paths/register --grep 'performance' --timeout 60000 -R spec 'tests/**/*.test.ts'",
         "test:all": "mocha --require ts-node/register --require tsconfig-paths/register --timeout 60000 -R spec 'tests/**/*.test.ts'",
+        "test:pragma": "mocha --require ts-node/register --require tsconfig-paths/register --grep 'pragma' --timeout 60000 -R spec 'tests/**/*.test.ts'",
         "test:watch": "npm test -- --watch"
     },
     "devDependencies": {

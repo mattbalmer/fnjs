@@ -1,5 +1,4 @@
 import { StringRecord } from '../types';
-import { collect, uncollect } from '../utils/collections';
 
 export interface mapKeysTransform<T> {
   (value: T, key: string, collection: StringRecord<T>): string
@@ -9,13 +8,11 @@ export interface mapKeysTransform<T> {
  * Maps the keys to another value
  */
 export function mapKeys<T>(object: StringRecord<T>, callback: mapKeysTransform<T>): StringRecord<T> {
-  const collection = collect(object);
-
-  const result = collection
-    .map((entry) => {
-      entry.key = callback(entry.value, entry.key, object);
-      return entry;
-    });
-
-  return uncollect(result);
+  return Object.keys(object)
+    .reduce((result, key) => {
+      const value = object[key];
+      const newKey = callback(value, key, object);
+      result[newKey] = value;
+      return result;
+    }, {} as StringRecord<T>)
 }

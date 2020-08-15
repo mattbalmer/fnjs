@@ -1,5 +1,4 @@
 import { StringRecord } from '../types';
-import { collect } from '../utils/collections';
 
 export interface findKeyPredicate<T> {
   (entry: T, key: string, collection: StringRecord<T>): boolean
@@ -9,10 +8,18 @@ export interface findKeyPredicate<T> {
  * Finds the first key where the entry matches the criteria
  */
 export function findKey<T>(object: StringRecord<T>, callback: findKeyPredicate<T>): string | undefined {
-  const collection = collect(object);
+  const keys = Object.keys(object);
 
-  const index = collection
-    .findIndex((entry) => callback(entry.value, entry.key, object));
+  for(let i = 0; i < keys.length; i++) {
+    const key = keys[i];
+    const value = object[key];
 
-  return index > -1 ? collection[index].key : undefined;
+    const isValid = callback(value, key, object);
+
+    if (isValid) {
+      return key;
+    }
+  }
+
+  return undefined;
 }

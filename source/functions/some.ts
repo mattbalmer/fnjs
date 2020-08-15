@@ -1,5 +1,4 @@
 import { StringRecord } from '../types';
-import { collect } from '../utils/collections';
 
 export interface somePredicate<T> {
   (entry: T, key: string, collection: StringRecord<T>): boolean
@@ -9,8 +8,18 @@ export interface somePredicate<T> {
  * Returns true if any entries in a collection meets the criteria
  */
 export function some<T>(object: StringRecord<T>, callback: somePredicate<T>): boolean {
-  const collection = collect(object);
+  const keys = Object.keys(object);
 
-  return collection
-    .some((entry) => callback(entry.value, entry.key, object));
+  for(let i = 0; i < keys.length; i++) {
+    const key = keys[i];
+    const value = object[key];
+
+    const isValid = callback(value, key, object);
+
+    if (isValid) {
+      return true;
+    }
+  }
+
+  return false;
 }

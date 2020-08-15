@@ -9,11 +9,12 @@ export interface forEachCallback<T> {
  * Runs a callback for every entry in the collection.
  */
 export function forEach<T>(object: StringRecord<T>, callback: forEachCallback<T>): StringRecord<T> {
-  const collection = collect(object);
+  const keys = Object.keys(object);
 
-  collection
-    .forEach((entry) => {
-      callback(entry.value, entry.key, object);
+  keys
+    .forEach((key) => {
+      const value = object[key];
+      callback(value, key, object);
     });
 
   return object;
